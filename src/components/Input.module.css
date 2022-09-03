@@ -1,0 +1,11 @@
+.input {
+	height: 20px;
+	margin: 3px;
+	justify-content: center;
+}
+
+.input_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

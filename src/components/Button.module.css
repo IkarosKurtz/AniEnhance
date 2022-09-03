@@ -1,0 +1,12 @@
+.epicButton {
+	font-size: 1rem;
+	font-weight: 700;
+	background-color: transparent;
+	border: 4px solid #5b4d5e;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.button {
+	margin: 5px;
+}

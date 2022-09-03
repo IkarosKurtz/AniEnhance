@@ -1,0 +1,29 @@
+@font-face {
+	font-family: 'Miriam Libre';
+	src: local('Miriam Libre'), url('@/assets/fonts/MiriamLibre-Regular.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Miriam Libre Bold';
+	src: local('Miriam Libre Bold'), url('@/assets/fonts/MiriamLibre-Bold.ttf') format('truetype');
+	font-weight: 700;
+}
+
+:root {
+	font-family: 'Miriam Libre', sans-serif;
+	font-size: 16px;
+
+	color: rgba(255, 254, 254, 0.87);
+	background-color: #f7caf4;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+}
