@@ -9,7 +9,7 @@ export function Checkbox({ id, name, label }) {
 					type='checkbox'
 					id={id}
 					name={name}
-					value={name}
+					value={true}
 				/>
 				{label}
 			</label>

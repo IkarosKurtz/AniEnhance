@@ -7,31 +7,60 @@ import { Checkbox } from './components/Checkbox';
 import { Content } from './components/Content';
 import { Input } from './components/Input';
 import Styles from './Content.module.css';
+import { Principal } from './content/ContentText';
+
+const rating = {
+	sfw: ['G - All Ages', 'PG - Children', 'PG-13 - Teens 13 or older'],
+	nsfw: ['R - 17+ (violence & profanity)', 'R+ - Mild Nudity', 'Rx - Hentai'],
+};
+const filters = {
+	nsfw: false,
+};
 
 function App() {
 	const [anime, setAnime] = useState(null);
+	const [animeList, setAnimeList] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		handleAnime();
 	}, []);
 
-	function handleAnime() {
-		let id = Math.floor(Math.random() * 1000);
+	async function handleAnime() {
+		if (loading) return;
 
-		getAnime(id)
-			.then((anime) => {
-				console.log(anime);
-				setAnime(anime.data);
-			})
-			.catch(() => handleAnime());
+		setLoading(true);
+
+		filters.nsfw = document.querySelector('#NSFW').checked;
+		setAnime(null);
+
+		let anime = await getAnime();
+
+		if (filters.nsfw) {
+			while (!rating.nsfw.includes(anime.data.rating)) {
+				anime = await getAnime();
+			}
+		} else {
+			while (rating.nsfw.includes(anime.data.rating)) {
+				console.log(anime.data.rating);
+				anime = await getAnime();
+				console.log(anime.data.rating);
+			}
+		}
+
+		setAnime(anime.data);
+		setLoading(false);
 	}
 
-	function handleSearch() {
-		SearchAnime(document.getElementById('SearchAnime').value)
-			.then((anime) => {
-				setAnime(anime.data[0]);
-			})
-			.catch((err) => console.log(err));
+	async function handleSearch() {
+		filters.nsfw = document.querySelector('#NSFW').checked;
+		setAnime(null);
+
+		let anime = await SearchAnime(document.getElementById('SearchAnime').value);
+		anime = anime.data[0];
+
+		console.log(anime);
+		setAnime(anime);
 	}
 
 	return (
@@ -41,19 +70,19 @@ function App() {
 			</header>
 			<div className={Styles.App_body}>
 				<Content
-					title={'¿Qué es AniEnhance?'}
-					content={
-						'AniEnhance es una forma de encontrar varias cosas relacionadas con el anime, por ejemplo arte, animes, quotes de personajes y imágenes de waifus (yo creo que esto es justo por lo que vienes), y eso no es todo ya que esta en fase de desarrollo asi que se vendrán mas cosas.'
-					}
+					title={Principal.title}
+					content={Principal.content}
 				/>
 				<div className={Styles.input_container}>
 					<Button
 						content={'Random'}
 						event={handleAnime}
+						id={'randomAnime'}
 					/>
 					<Button
 						content={'Buscar'}
 						event={handleSearch}
+						id={'buttonSearch'}
 					/>
 
 					<Input />
@@ -65,15 +94,13 @@ function App() {
 						label={'NSFW'}
 						name={'NSFW'}
 					/>
-
-					<Checkbox
-						id={'SFW'}
-						label={'SFW'}
-						name={'SFW'}
-					/>
 				</div>
 
 				<AnimePanel anime={anime} />
+				<Content
+					content={''}
+					title={''}
+				/>
 			</div>
 
 			<footer className='App-footer'>
