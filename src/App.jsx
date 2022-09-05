@@ -1,50 +1,57 @@
 import { useEffect, useState } from 'react';
-import { getAnime, SearchAnime } from './Apis/JikanApi';
-import './App.css';
-import { AnimePanel } from './components/AnimePanel';
-import { Button } from './components/Button';
-import { Checkbox } from './components/Checkbox';
-import { Content } from './components/Content';
-import { Input } from './components/Input';
-import Styles from './Content.module.css';
-import { Principal } from './content/ContentText';
 
-const rating = {
-	sfw: ['G - All Ages', 'PG - Children', 'PG-13 - Teens 13 or older'],
-	nsfw: ['R - 17+ (violence & profanity)', 'R+ - Mild Nudity', 'Rx - Hentai'],
-};
+// Apis
+import { FetchRandomAnime, FetchAnime } from './Apis/JikanApi';
+
+// Components
+import { AnimePanel } from './components/AnimePanel';
+import { Content } from './components/Content';
+import { BlankSpace, Button, Checkbox, Input } from './components/GeneralComponents';
+import { WaifuPics } from './Sections/WaifuPics';
+
+// Utils
+import { AnimePanelInfo, Principal, WaifuPicsInfo } from './content/ContentText';
+
+// Styles
+import Styles from './Content.module.css';
+import './App.css';
+
+// Filters
 const filters = {
 	nsfw: false,
+	normal: ['G - All Ages', 'PG - Children', 'PG-13 - Teens 13 or older'],
+	adult: ['R - 17+ (violence & profanity)', 'R+ - Mild Nudity', 'Rx - Hentai'],
 };
 
 function App() {
+	// States
 	const [anime, setAnime] = useState(null);
-	const [animeList, setAnimeList] = useState([]);
 	const [loading, setLoading] = useState(false);
 
+	// Show the first anime
 	useEffect(() => {
 		handleAnime();
 	}, []);
 
+	// Search a random anime
 	async function handleAnime() {
-		if (loading) return;
+		if (loading) return; // If is loading, return
 
-		setLoading(true);
+		setLoading(true); // Set loading
 
-		filters.nsfw = document.querySelector('#NSFW').checked;
-		setAnime(null);
+		filters.nsfw = document.querySelector('#NSFW').checked; // Check if you want NSFW content
 
-		let anime = await getAnime();
+		setAnime(null); // Set anime to null because we want show loading section
+
+		let anime = await FetchRandomAnime();
 
 		if (filters.nsfw) {
-			while (!rating.nsfw.includes(anime.data.rating)) {
-				anime = await getAnime();
+			while (!filters.adult.includes(anime.data.rating)) {
+				anime = await FetchRandomAnime();
 			}
 		} else {
-			while (rating.nsfw.includes(anime.data.rating)) {
-				console.log(anime.data.rating);
-				anime = await getAnime();
-				console.log(anime.data.rating);
+			while (filters.adult.includes(anime.data.rating)) {
+				anime = await FetchRandomAnime();
 			}
 		}
 
@@ -56,10 +63,9 @@ function App() {
 		filters.nsfw = document.querySelector('#NSFW').checked;
 		setAnime(null);
 
-		let anime = await SearchAnime(document.getElementById('SearchAnime').value);
+		let anime = await FetchAnime(document.getElementById('SearchAnime').value);
 		anime = anime.data[0];
 
-		console.log(anime);
 		setAnime(anime);
 	}
 
@@ -69,10 +75,13 @@ function App() {
 				<h1>AniEnhance</h1>
 			</header>
 			<div className={Styles.App_body}>
-				<Content
-					title={Principal.title}
-					content={Principal.content}
-				/>
+				{/* First section*/}
+				<Content content={Principal} />
+
+				<BlankSpace blankSpaces={3} />
+
+				<Content content={AnimePanelInfo} />
+
 				<div className={Styles.input_container}>
 					<Button
 						content={'Random'}
@@ -88,19 +97,27 @@ function App() {
 					<Input />
 				</div>
 				<div className={Styles.filter_container}>
-					<p className={Styles.filter_title}>Filtros:</p>
+					<p
+						className={Styles.filter_title}
+						style={{ fontFamily: 'KanitMedium' }}
+					>
+						Filtros:
+					</p>
 					<Checkbox
 						id={'NSFW'}
 						label={'NSFW'}
-						name={'NSFW'}
 					/>
 				</div>
 
 				<AnimePanel anime={anime} />
-				<Content
-					content={''}
-					title={''}
-				/>
+
+				<BlankSpace blankSpaces={2} />
+
+				{/* Second section */}
+
+				<Content content={WaifuPicsInfo} />
+
+				<WaifuPics />
 			</div>
 
 			<footer className='App-footer'>

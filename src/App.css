@@ -1,6 +1,8 @@
 .App {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	min-height: 100vh;
 }
 
@@ -8,14 +10,16 @@
 	align-items: center;
 	color: white;
 	background-color: #325a8f;
+	width: 100%;
 }
 
 .App-header h1 {
-	font-family: 'Miriam Libre Bold';
+	font-family: 'KanitBold';
 	text-align: center;
 }
 
 .App-footer {
+	width: 100%;
 	background-color: #325a8f;
 	margin-top: auto;
 }

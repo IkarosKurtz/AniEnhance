@@ -1,11 +1,15 @@
 import React from 'react';
 import Style from './AnimePanel.module.css';
+import LoadingStyle from './Loading.module.css';
 
 export function AnimePanel({ anime }) {
 	if (!anime)
 		return (
-			<div className={Style.loader_container}>
-				<div className={Style.loader}></div>
+			<div
+				className={LoadingStyle.loader_container}
+				style={{ backgroundColor: '#c6db6e', borderColor: '#c6db6e', height: '800px' }}
+			>
+				<div className={LoadingStyle.loader}></div>
 			</div>
 		);
 
@@ -138,7 +142,7 @@ function Info({ type, info }) {
 	return (
 		<>
 			<p className={Style.info}>
-				<text style={{ fontFamily: 'Miriam Libre Bold' }}>{type}</text>
+				<text style={{ fontFamily: 'KanitBold' }}>{type}</text>
 				{info ? info : 'Unknown'}
 			</p>
 		</>

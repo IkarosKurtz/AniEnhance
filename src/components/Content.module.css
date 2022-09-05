@@ -7,8 +7,14 @@
 }
 
 .container h2 {
-	font-family: 'Miriam Libre Bold';
-	font-size: 2rem;
+	font-family: 'KanitBold';
+	font-size: 1.6rem;
 	font-weight: 700;
 	margin-bottom: 0px;
+}
+
+@media screen and (min-width: 600px) {
+	.container p {
+		font-size: 1.2rem;
+	}
 }

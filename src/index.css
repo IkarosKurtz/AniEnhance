@@ -1,17 +1,23 @@
 @font-face {
-	font-family: 'Miriam Libre';
-	src: local('Miriam Libre'), url('@/assets/fonts/MiriamLibre-Regular.ttf') format('truetype');
-	font-weight: normal;
+	font-family: 'KanitMedium';
+	src: local('KanitMedium'), url('./assets/fonts/kanit/Kanit-Medium.ttf') format('truetype');
+	font-weight: 500;
 }
 
 @font-face {
-	font-family: 'Miriam Libre Bold';
-	src: local('Miriam Libre Bold'), url('@/assets/fonts/MiriamLibre-Bold.ttf') format('truetype');
+	font-family: 'KanitBold';
+	src: local('KanitBold'), url('./assets/fonts/kanit/Kanit-Bold.ttf') format('truetype');
 	font-weight: 700;
 }
 
+@font-face {
+	font-family: 'KanitRegular';
+	src: local('KanitRegular'), url('./assets/fonts/kanit/Kanit-Regular.ttf') format('truetype');
+	font-weight: 400;
+}
+
 :root {
-	font-family: 'Miriam Libre', sans-serif;
+	font-family: 'KanitRegular', sans-serif;
 	font-size: 16px;
 
 	color: rgba(255, 254, 254, 0.87);

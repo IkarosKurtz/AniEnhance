@@ -11,7 +11,7 @@
 .information_title {
 	width: 85%;
 	text-align: left;
-	font-family: 'Miriam Libre Bold';
+	font-family: 'KanitBold';
 	margin-bottom: 0;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .panel h1 {
-	font-family: 'Miriam Libre Bold';
+	font-family: 'KanitBold';
 	font-size: 1.3rem;
 	text-align: center;
 	width: 85%;
@@ -44,64 +44,13 @@
 
 .panel h4 {
 	text-align: center;
-	font-family: 'Miriam Libre Bold';
+	font-family: 'KanitBold';
 	font-size: 1.3rem;
 	margin-bottom: 0;
 }
-/* Loading container */
 
-.loader_container {
-	z-index: 9999;
-	transition: all 1.5s;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 5px solid #c6db6e;
-	border-radius: 6px;
-	background-color: #c6db6e;
-	height: 800px;
-	min-width: 80%;
-}
-
-.loader,
-.loader:before,
-.loader:after {
-	border-radius: 50%;
-	width: 2.5em;
-	height: 2.5em;
-	animation: loader 1.5s infinite ease-in-out;
-}
-
-.loader {
-	color: #4284db;
-	font-size: 13px;
-	position: relative;
-	animation-delay: -0.16s;
-}
-
-.loader:before,
-.loader:after {
-	content: '';
-	position: absolute;
-	top: 0;
-}
-
-.loader:before {
-	left: -3.5em;
-	animation-delay: -0.32s;
-}
-
-.loader:after {
-	left: 3.5em;
-}
-
-@keyframes loader {
-	0%,
-	80%,
-	100% {
-		box-shadow: 0 2.5em 0 -1.3em;
-	}
-	40% {
-		box-shadow: 0 2.5em 0 0;
+@media screen and (min-width: 600px) {
+	.information {
+		align-items: center;
 	}
 }
